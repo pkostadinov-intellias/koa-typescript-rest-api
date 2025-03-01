@@ -1,7 +1,7 @@
 import { Repository } from "../db/repository";
 import { Task } from "../types/task";
 
-const taskRepository = new Repository<Task>();
+const taskRepository = new Repository<Task>("tasks");
 
 export const getAllTasks = async () => {
   return taskRepository.find();

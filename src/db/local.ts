@@ -6,39 +6,64 @@ export interface Entity {
 }
 
 export const storage = {
-  map: new Map<string, Entity>(),
+  map: new Map<string, Map<string, Entity>>(), // Stores tables and their respective entities
 
-  async add(id: string, data: Entity): Promise<void> {
-    if (this.map.has(id)) {
-      throw new Error(`Entity with id ${id} exists`);
+  async add(tableName: string, id: string, data: Entity): Promise<void> {
+    if (!this.map.has(tableName)) {
+      this.map.set(tableName, new Map<string, Entity>());
     }
-    this.map.set(id, data);
+    const table = this.map.get(tableName)!;
+
+    if (table.has(id)) {
+      throw new Error(
+        `Entity with id ${id} already exists in table ${tableName}`
+      );
+    }
+
+    table.set(id, data);
     await this.persist();
   },
 
-  async update(id: string, data: Entity): Promise<void> {
-    this.map.set(id, data);
+  async update(tableName: string, id: string, data: Entity): Promise<void> {
+    const table = this.map.get(tableName);
+    if (!table || !table.has(id)) {
+      throw new Error(`Entity with id ${id} not found in table ${tableName}`);
+    }
+
+    table.set(id, data);
     await this.persist();
   },
 
-  async delete(id: string): Promise<void> {
-    this.map.delete(id);
-    await this.persist();
+  async delete(tableName: string, id: string): Promise<void> {
+    const table = this.map.get(tableName);
+    if (table) {
+      table.delete(id);
+      await this.persist();
+    }
   },
 
-  async getAll(): Promise<Entity[]> {
-    return Array.from(this.map.values());
+  async getAll(tableName: string): Promise<Entity[]> {
+    const table = this.map.get(tableName);
+    return table ? Array.from(table.values()) : [];
   },
 
-  async getById(id: string): Promise<Entity | null> {
+  async getById(tableName: string, id: string): Promise<Entity | null> {
     if (!id) {
       throw new Error("ID must be provided");
     }
-    return this.map.get(id) || null;
+    const table = this.map.get(tableName);
+    return table?.get(id) || null;
   },
 
-  async getBy(propKey: string, propVal: any): Promise<Entity | undefined> {
-    for (const item of this.map.values()) {
+  async getBy(
+    tableName: string,
+    propKey: string,
+    propVal: any
+  ): Promise<Entity | undefined> {
+    const table = this.map.get(tableName);
+    if (!table) return undefined;
+
+    for (const item of table.values()) {
       if (item[propKey] === propVal) {
         return item;
       }
@@ -47,7 +72,13 @@ export const storage = {
   },
 
   async persist(): Promise<void> {
-    fs.writeFileSync("./db.json", JSON.stringify(await this.getAll(), null, 2));
+    const dbObject: Record<string, Entity[]> = {};
+
+    this.map.forEach((table, tableName) => {
+      dbObject[tableName] = Array.from(table.values());
+    });
+
+    fs.writeFileSync("./db.json", JSON.stringify(dbObject, null, 2));
   }
 };
 
@@ -57,9 +88,14 @@ export const init = (): void => {
       const dataBuffer = fs.readFileSync("./db.json");
       const data = dataBuffer.toString();
       if (data.length > 0) {
-        const parsedData: Entity[] = JSON.parse(data);
-        parsedData.forEach((item) => {
-          storage.add(item.id, item);
+        const parsedData: Record<string, Entity[]> = JSON.parse(data);
+
+        Object.entries(parsedData).forEach(([tableName, entities]) => {
+          const table = new Map<string, Entity>();
+          entities.forEach((item) => {
+            table.set(item.id, item);
+          });
+          storage.map.set(tableName, table);
         });
       }
     } catch (err) {

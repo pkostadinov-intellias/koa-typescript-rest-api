@@ -3,7 +3,7 @@ import { Repository } from "../db/repository";
 import bcrypt from "bcryptjs";
 import { User } from "../types/user";
 
-const userRepository = new Repository<User>();
+const userRepository = new Repository<User>("users");
 
 export const getAllUsers = async () => {
   return userRepository.find();
