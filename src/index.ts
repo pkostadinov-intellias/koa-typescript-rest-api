@@ -5,6 +5,8 @@ import config from "./config/config";
 import userRouter from "./routes/user-routes";
 import { db } from "./db/db";
 import { authRouter } from "./routes/auth-routes";
+import { authMiddleware } from "./middleware/auth-middleware";
+import taskRouter from "./routes/task-routes";
 
 (async () => {
   db.init();
@@ -15,8 +17,14 @@ import { authRouter } from "./routes/auth-routes";
     prefix: "/api/v1"
   });
 
+  //Public routes
   router.use(authRouter.routes());
+
+  router.use(authMiddleware);
+
+  //Private routes
   router.use(userRouter.routes());
+  router.use(taskRouter.routes());
 
   app.use(bodyParser());
   app.use(router.routes());

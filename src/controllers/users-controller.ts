@@ -4,9 +4,9 @@ import {
   deleteUser,
   getAllUsers,
   getUserById,
-  updateUser,
-  User
+  updateUser
 } from "../services/user-service";
+import { User } from "../types/user";
 
 export const getAllUsersController = async (ctx: Context) => {
   try {
@@ -33,10 +33,10 @@ export const getUserByIdController = async (ctx: Context) => {
 
 export const createUserController = async (ctx: Context) => {
   try {
-    const { name, email } = ctx.request.body as User;
+    const { name, email, password } = ctx.request.body as User;
     if (!name || !email) ctx.throw(400, "Name and email are required");
 
-    const newUser = await createUser({ name, email } as User);
+    const newUser = await createUser({ name, email, password } as User);
     ctx.body = newUser;
   } catch (error: any) {
     ctx.throw(error.status || 400, error.message || "Bad Request");

@@ -1,13 +1,7 @@
 import config from "../config/config";
 import { Repository } from "../db/repository";
 import bcrypt from "bcryptjs";
-
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-}
+import { User } from "../types/user";
 
 const userRepository = new Repository<User>();
 
