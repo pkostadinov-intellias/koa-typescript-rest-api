@@ -6,7 +6,7 @@ import {
   getTaskById,
   getTasksByUserId,
   updateTask
-} from "../services/task-service";
+} from "./task-service";
 
 export const getAllTasksController = async (ctx: Context) => {
   try {

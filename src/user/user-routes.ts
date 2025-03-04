@@ -6,7 +6,7 @@ import {
   updateUserController,
   deleteUserController,
   getUserByEmailController
-} from "../controllers/users-controller";
+} from "./users-controller";
 import { validatorMiddleware } from "../middleware/validator-middleware";
 import {
   createUserValidationSchema,

@@ -1,8 +1,8 @@
 import { Context } from "koa";
-import { createUser, getUserByEmail } from "../services/user-service";
+import { createUser, getUserByEmail } from "../user/user-service";
 import bcrypt from "bcryptjs";
 import { createToken } from "../utils/token";
-import { User } from "../types/user";
+import { User } from "../user/user";
 
 export const signUp = async (ctx: Context) => {
   try {

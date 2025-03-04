@@ -2,7 +2,7 @@ import Router from "koa-router";
 import { validatorMiddleware } from "../middleware/validator-middleware";
 import { signInValidationSchema } from "../schemas/signIn.validation-schema";
 import { createUserValidationSchema } from "../schemas/users.validation-schema";
-import { signUp, signIn } from "../controllers/auth-controller";
+import { signUp, signIn } from "./auth-controller";
 
 export const authRouter = new Router({
   prefix: "/auth"

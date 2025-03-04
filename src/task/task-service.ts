@@ -1,5 +1,5 @@
 import { Repository } from "../db/repository";
-import { Task } from "../types/task";
+import { Task } from "./task";
 
 const taskRepository = new Repository<Task>("tasks");
 

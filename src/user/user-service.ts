@@ -1,7 +1,7 @@
 import config from "../config/config";
 import { Repository } from "../db/repository";
 import bcrypt from "bcryptjs";
-import { User } from "../types/user";
+import { User } from "./user";
 
 const userRepository = new Repository<User>("users");
 

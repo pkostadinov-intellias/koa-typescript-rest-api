@@ -1,6 +1,6 @@
 import * as jwt from "jsonwebtoken";
 import config from "../config/config";
-import { User } from "../types/user";
+import { User } from "../user/user";
 
 export const createToken = (user: User): string => {
   const serializedUser = {

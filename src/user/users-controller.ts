@@ -6,8 +6,8 @@ import {
   getUserByEmail,
   getUserById,
   updateUser
-} from "../services/user-service";
-import { User } from "../types/user";
+} from "./user-service";
+import { User } from "./user";
 
 export const getAllUsersController = async (ctx: Context) => {
   try {

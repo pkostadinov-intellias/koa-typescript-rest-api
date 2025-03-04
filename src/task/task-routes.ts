@@ -6,7 +6,7 @@ import {
   getTaskByIdController,
   getTasksByUserIdController,
   updateTaskController
-} from "../controllers/task-controller";
+} from "./task-controller";
 import {
   createTaskValidationSchema,
   taskValidationSchema

@@ -2,11 +2,11 @@ import Koa from "koa";
 import bodyParser from "koa-bodyparser";
 import Router from "koa-router";
 import config from "./config/config";
-import userRouter from "./routes/user-routes";
+import userRouter from "./user/user-routes";
 import { db } from "./db/db";
-import { authRouter } from "./routes/auth-routes";
+import { authRouter } from "./auth/auth-routes";
 import { authMiddleware } from "./middleware/auth-middleware";
-import taskRouter from "./routes/task-routes";
+import taskRouter from "./task/task-routes";
 
 (async () => {
   db.init();
