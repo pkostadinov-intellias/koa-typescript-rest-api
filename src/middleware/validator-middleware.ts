@@ -12,11 +12,18 @@ export const validatorMiddleware =
       const valid = validate(ctx.request.body);
 
       if (!valid) {
-        ctx.throw(400, validate.errors as any);
+        ctx.status = 400;
+        ctx.body = validate.errors?.map((err) => err.message);
+
+        return;
       }
 
       await next();
     } catch (error: any) {
-      ctx.throw(error.status || 500, error.message);
+      ctx.status = error.status || 500;
+      ctx.body = {
+        status: "error",
+        message: error.message || "Internal Server Error"
+      };
     }
   };

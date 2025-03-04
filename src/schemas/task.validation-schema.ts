@@ -9,8 +9,7 @@ export const taskValidationSchema = {
     status: { enum: ["pending", "in-progress", "completed"] },
     ownerId: { type: "string", format: "uuid" }
   },
-  additionalProperties: false,
-  required: ["id", "title", "status", "ownerId"]
+  additionalProperties: false
 };
 
 export const createTaskValidationSchema = {

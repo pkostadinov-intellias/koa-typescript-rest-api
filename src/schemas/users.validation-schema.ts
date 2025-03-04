@@ -8,12 +8,10 @@ export const userValidationSchema = {
     name: { type: "string" },
     password: { type: "string" }
   },
-  additionalProperties: false,
-  required: ["id", "name"]
+  additionalProperties: false
 };
 
 export const createUserValidationSchema = {
   ...userValidationSchema,
-  properties: _.omit(userValidationSchema.properties, ["id"]),
   required: ["email", "name", "password"]
 };

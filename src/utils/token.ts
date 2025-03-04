@@ -9,7 +9,9 @@ export const createToken = (user: User): string => {
     name: user.name
   };
 
-  return jwt.sign(serializedUser, config.jwt_secret, { expiresIn: "1h" });
+  return jwt.sign(serializedUser, config.jwt_secret, {
+    expiresIn: "7d"
+  });
 };
 
 export const verifyToken = (token: string): User | null => {

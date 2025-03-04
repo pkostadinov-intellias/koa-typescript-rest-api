@@ -4,6 +4,7 @@ import {
   deleteTaskController,
   getAllTasksController,
   getTaskByIdController,
+  getTasksByUserIdController,
   updateTaskController
 } from "../controllers/task-controller";
 import {
@@ -16,6 +17,7 @@ const taskRouter = new Router({ prefix: "/tasks" });
 
 taskRouter.get("/", getAllTasksController);
 taskRouter.get("/:id", getTaskByIdController);
+taskRouter.get("/user/:userId", getTasksByUserIdController);
 
 taskRouter.post(
   "/",

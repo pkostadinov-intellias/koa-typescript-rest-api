@@ -1,0 +1,42 @@
+{
+  "users": [
+    {
+      "email": "Rosa.Cassin@yahoo.com",
+      "name": "Willis Beer",
+      "password": "$2b$10$/cPPXd61b2LXS2l6S/Yhsu.SiuiMtKpp0aBkWCNpU8xk/n9QsEY62",
+      "id": "db8f12f9-6248-4530-ac38-cfa2913108c5"
+    },
+    {
+      "email": "Genoveva62@yahoo.com",
+      "name": "Sheri Abshire",
+      "password": "$2b$10$TKaHgM0v4Y0xw0AfHRcF7.lozVXzxk/eHtFZ2UlKnynnQQRQCkO3C",
+      "id": "b4b1c626-b10c-48e9-a575-edcf2c2df328"
+    },
+    {
+      "name": "Wanda",
+      "email": "Rashad.Gutkowski@hotmail.com",
+      "password": "$2b$10$a67ZBdZEpOTHarg9lri8A.Yp5ztM.vSryP40koVcQ24AoZxmYrFvy",
+      "id": "b016d521-4608-4f1e-9865-8882815a2ca8"
+    },
+    {
+      "email": "Janice_Reinger95@yahoo.com",
+      "name": "Lucas Lubowitz PhD",
+      "password": "$2b$10$WSYBwcKhSt7rg1Q0KIAsGe5Zuvmw3zQP5cSM4dpz3lKx1H7F4jxaW",
+      "id": "07e7fa19-b09a-4c98-b293-44022619c417"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Direct Intranet Specialist",
+      "status": "pending",
+      "ownerId": "b4b1c626-b10c-48e9-a575-edcf2c2df328",
+      "id": "26ed55f4-6149-42de-9a6b-538ce068645f"
+    },
+    {
+      "title": "Investor Markets Planner",
+      "status": "pending",
+      "ownerId": "b016d521-4608-4f1e-9865-8882815a2ca8",
+      "id": "9fd675b5-d859-4705-8a3f-dd940e74fcb9"
+    }
+  ]
+}

@@ -4,6 +4,7 @@ import {
   deleteTask,
   getAllTasks,
   getTaskById,
+  getTasksByUserId,
   updateTask
 } from "../services/task-service";
 
@@ -23,6 +24,15 @@ export const getTaskByIdController = async (ctx: Context) => {
     ctx.throw(404, `Task with ID ${id} not found`);
   }
   ctx.body = task;
+};
+
+export const getTasksByUserIdController = async (ctx: Context) => {
+  const { userId } = ctx.params;
+  const tasks = await getTasksByUserId(userId);
+  if (!tasks.length) {
+    ctx.throw(404, `User with id: ${userId}, doesn't have tasks`);
+  }
+  ctx.body = tasks;
 };
 
 export const createTaskController = async (ctx: Context) => {

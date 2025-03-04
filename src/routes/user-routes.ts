@@ -4,7 +4,8 @@ import {
   getUserByIdController,
   createUserController,
   updateUserController,
-  deleteUserController
+  deleteUserController,
+  getUserByEmailController
 } from "../controllers/users-controller";
 import { validatorMiddleware } from "../middleware/validator-middleware";
 import {
@@ -16,6 +17,7 @@ const userRouter = new Router({ prefix: "/users" });
 
 userRouter.get("/", getAllUsersController);
 userRouter.get("/:id", getUserByIdController);
+userRouter.get("/by-email/:email", getUserByEmailController);
 
 userRouter.post(
   "/",

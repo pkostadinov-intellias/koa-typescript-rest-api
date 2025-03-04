@@ -3,6 +3,7 @@ import {
   createUser,
   deleteUser,
   getAllUsers,
+  getUserByEmail,
   getUserById,
   updateUser
 } from "../services/user-service";
@@ -31,6 +32,21 @@ export const getUserByIdController = async (ctx: Context) => {
   }
 };
 
+//usually it will be beter with query rather than params, but for easier postman testing i made it like this
+export const getUserByEmailController = async (ctx: Context) => {
+  try {
+    const email = ctx.params.email;
+    if (!email) ctx.throw(400, "email is required");
+
+    const user = await getUserByEmail(email);
+    if (!user) ctx.throw(404, "User not found");
+
+    ctx.body = user;
+  } catch (error: any) {
+    ctx.throw(error.status || 500, error.message || "Internal Server Error");
+  }
+};
+
 export const createUserController = async (ctx: Context) => {
   try {
     const { name, email, password } = ctx.request.body as User;
@@ -46,17 +62,15 @@ export const createUserController = async (ctx: Context) => {
 export const updateUserController = async (ctx: Context) => {
   try {
     const userId = ctx.params.id;
-    const { name, email } = ctx.request.body as {
-      name?: string;
-      email?: string;
-    };
+
+    const newUserData = ctx.request.body as User;
 
     if (!userId) ctx.throw(400, "User ID is required");
 
     const user = await getUserById(userId);
     if (!user) ctx.throw(404, "User not found");
 
-    const updatedUser = await updateUser(userId, { name, email } as any);
+    const updatedUser = await updateUser(userId, newUserData);
     ctx.body = updatedUser;
   } catch (error: any) {
     ctx.throw(error.status || 500, error.message || "Internal Server Error");

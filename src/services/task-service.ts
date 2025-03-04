@@ -11,6 +11,14 @@ export const getTaskById = async (id: string) => {
   return taskRepository.findById(id);
 };
 
+export const getTasksByUserId = async (userId: string) => {
+  const tasksByUserId = (await taskRepository.find()).filter(
+    (task) => task.ownerId === userId
+  );
+
+  return tasksByUserId;
+};
+
 export const createTask = async (task: Task) => {
   if (!task.title) {
     throw new Error("Task title is required");
@@ -40,5 +48,6 @@ export const deleteTask = async (id: string) => {
   if (!existingTask) {
     return null;
   }
-  return taskRepository.delete(id);
+  await taskRepository.delete(id);
+  return existingTask;
 };
