@@ -6,6 +6,7 @@ A simple REST API built with Koa that provides authentication (Sign-In / Sign-Up
 
 - **Authentication**: Sign-In / Sign-Up using JWT.
 - **User Management**: Create, Read, Update, and Delete users.
+- **Task Management**: Create, Read, Update, and Delete tasks.
 - **Middleware**: Authentication middleware to protect private routes.
 
 ## Getting Started
