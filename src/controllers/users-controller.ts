@@ -82,6 +82,10 @@ export const deleteUserController = async (ctx: Context) => {
     const userId = ctx.params.id;
     if (!userId) ctx.throw(400, "User ID is required");
 
+    if (!(await getUserById(userId))) {
+      ctx.throw(404, "User not found");
+    }
+
     await deleteUser(userId);
     ctx.status = 204;
   } catch (error: any) {
